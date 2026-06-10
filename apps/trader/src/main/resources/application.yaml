@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: trader
+  ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:xxx}
+      chat:
+        options:
+          model: claude-opus-4-5

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mcp-server-finanassets
+  ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:xxx}
+      chat:
+        options:
+          model: claude-opus-4-5
