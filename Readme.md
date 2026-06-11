@@ -40,7 +40,39 @@ The framework models agentic behavior through several primary abstractions:
 - **Azure AI Foundry Integration:** The agent is designed to leverage Azure AI Foundry for hosting LLM models and providing the necessary infrastructure for running the agent in a cloud environment, ensuring scalability and reliability.
 - 
 
+## The Embabel Agentic workflow for this demo...
+- MCP tools perform CRUD/business operations.
+- Embabel Actions orchestrate the workflow.
+- The Agent maintains the working context between actions.
+- PostgreSQL becomes the source of truth.
+´´´
+Action 1
+---------
+getPortfolioAssets()
 
+          ↓
+
+Action 2
+---------
+getLatestClosePrice(symbol)
+
+          ↓
+
+Action 3
+---------
+updateClosePrice(assetId, latestClose)
+
+          ↓
+
+Action 4
+---------
+generateDeviationReport()
+
+          ↓
+
+Markdown Result
+´´´
+**NOTE:** Embabel uses the method signature and return type as part of the planning model.
 ## AI Stock Market Trader ShowCase with Spring AI and Azure AI Foundry
 This project demonstrates how to implement an AI Agent with [Java Spring AI](https://docs.spring.io/spring-ai/reference/index.html) framework and how use [Terraform](https://developer.hashicorp.com/terraform) Infrastructure-as-Code (IaC) tool to configure Azure AI Foundry components to hosting LLM models and Azure AKS Kubernetes cluster to run the containerized AI Agent as POD.
 ## Full End-to-End, from Development, CI/CD, Deployment to Provisioning with Terraform

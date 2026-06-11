@@ -1,0 +1,5 @@
+rootProject.name = 'embabel-trader'
+
+include 'trader-common'
+include 'trader-agent'
+include 'trader-mcp-tools'
