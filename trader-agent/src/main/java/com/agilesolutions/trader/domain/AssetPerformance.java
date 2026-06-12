@@ -1,4 +1,4 @@
-package com.agilesolutions.trader.model;
+package com.agilesolutions.trader.domain;
 
 import java.math.BigDecimal;
 

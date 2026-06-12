@@ -16,8 +16,8 @@ java {
 repositories {
 	mavenLocal()
 	mavenCentral()
-	maven { url 'https://repo.spring.io/milestone' }
-	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url = 'https://repo.spring.io/milestone' }
+	maven { url = 'https://repo.spring.io/snapshot' }
 	maven { url = uri("https://repo.embabel.com/artifactory/libs-snapshot") }
 }
 ext {
@@ -35,12 +35,18 @@ dependencies {
 
 	// Core and MCP Client dependencies
 	implementation 'com.embabel.agent:embabel-agent-starter:0.4.0'
+	implementation 'com.embabel.agent:embabel-agent-starter-shell:0.4.0'
 	implementation 'com.embabel.agent:embabel-agent-starter-openai:0.4.0'
-	implementation 'com.embabel.agent:embabel-agent-starter-mcpserver:0.4.0'
 
-//	implementation 'org.springframework.ai:spring-ai-mcp-client-spring-boot-starter'
+	implementation 'org.springframework.ai:spring-ai-starter-mcp-client-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-	implementation 'org.springframework.ai:spring-ai-starter-model-anthropic'
+	// Choose one LLM provider
+	implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+	// OR
+	// implementation 'org.springframework.ai:spring-ai-starter-model-anthropic'
+	// OR
+	// implementation 'org.springframework.ai:spring-ai-starter-model-azure-openai'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'

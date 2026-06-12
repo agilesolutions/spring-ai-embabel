@@ -1,15 +1,16 @@
 package com.agilesolutions.trader.service;
 
-import com.agilesolutions.trader.model.AssetPerformance;
-import org.springframework.stereotype.Service;
+import com.agilesolutions.trader.domain.AssetPerformance;
+import com.agilesolutions.trader.domain.AssetPerformances;
+import com.embabel.agent.api.annotation.LlmTool;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-@Service
+@Component
 public class PortfolioMarkdownGenerator {
 
+    @LlmTool(description = "Generate a markdown portfolio report based on actual performances")
     public String generate(
-            List<AssetPerformance> assets) {
+            AssetPerformances performances) {
 
         StringBuilder md = new StringBuilder();
 
@@ -18,7 +19,7 @@ public class PortfolioMarkdownGenerator {
         md.append("| Symbol | Name | Qty | Buy | Current | Value | P/L |\n");
         md.append("|--------|------|-----|-----|---------|-------|-----|\n");
 
-        for (AssetPerformance asset : assets) {
+        for (AssetPerformance asset : performances.performances()) {
 
             md.append("| ")
                     .append(asset.symbol()).append(" | ")

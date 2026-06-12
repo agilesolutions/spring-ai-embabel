@@ -2,15 +2,13 @@ spring:
   application:
     name: trader
   ai:
-    anthropic:
-      api-key: ${ANTHROPIC_API_KEY:xxx}
-      chat:
-        options:
-          model: claude-opus-4-5
+    openai:
+      api-key: ${OPENAI_API_KEY}
+
       mcp:
         client:
-          type: SYNC
-          sse:
+          enabled: true
+          streamable-http:
             connections:
-              twelvedata-service:
-                url: "http://your-remote-server:8080/mcp/sse"
+              financial-server:
+                url: "http://localhost:8081"

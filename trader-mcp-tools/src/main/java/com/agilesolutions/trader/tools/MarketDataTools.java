@@ -15,9 +15,13 @@ public class MarketDataTools {
     }
 
     @Tool(
-            name = "getLatestClosePrice",
-            description = "Get latest close price for ticker symbol")
-    public QuoteResponse getLatestClosePrice(String symbol) {
+            name = "getLatestQuote",
+            description = """
+                    Retrieve the latest close price
+                    for a stock, ETF, index or fund.
+                    """
+    )
+    public QuoteResponse getLatestQuote(String symbol) {
 
         return service.quote(symbol);
     }

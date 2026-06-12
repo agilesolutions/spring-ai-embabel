@@ -1,7 +1,6 @@
 package com.agilesolutions.trader.model;
 
 import lombok.Builder;
-import lombok.Data;
 
 import java.math.BigDecimal;
 

@@ -7,6 +7,18 @@ The use case of this project is a simple AI Stock Market Trader, which is an AI 
 
 This project is a demonstration of [Embabel](https://docs.embabel.com/embabel-agent/guide/0.5.0-SNAPSHOT/) open-source framework designed for building AI agents on the JVM (Java Virtual Machine) that integrates Large Language Models (LLMs) with traditional business logic. Created by Rod Johnson, the founder of the Spring Framework, it aims to bring the type safety and reliability of enterprise Java to the non-deterministic world of Generative AI.
 
+### Why Embabel?
+Embabel is an Agentic AI framework for the JVM. Python has long been the go-to for machine learning experiments, thanks to its ease, ecosystem richness, and data scientist-friendly tools. 
+However, it often struggles when you try to move from experiment to real-world, production-scale AI.
+
+As AI adoption becomes more mission critical, what matters is not just model training or computation. 
+It is context, reliability, type safety, performance, observability, and integration with existing enterprise systems. 
+Java and Kotlin offer these strengths. Strong typing, mature tooling, and proven track records in resilient, scalable systems make them a compelling choice for serious AI. It is time to move beyond proofs of concept.
+
+**The Team Behind Embabel:**
+
+Alongside Spring Framework founder Rod Johnson and other alumni, Embabel is built by a team of high-achieving engineers with a proven record not only in applied AI, but also in designing, scaling, and delivering large, complex systems.
+
 ### Embabel Core Philosophy and features
 Embabel distinguishes itself from Python-based frameworks by emphasizing deterministic orchestration and deep integration with existing enterprise systems.
 
