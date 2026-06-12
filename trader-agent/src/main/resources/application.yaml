@@ -2,13 +2,23 @@ spring:
   application:
     name: trader
   ai:
-    openai:
-      api-key: ${OPENAI_API_KEY}
+    mcp:
+      client:
+        enabled: true
+        streamable-http:
+          connections:
+            financial-server:
+              url: "http://localhost:8081"
 
-      mcp:
-        client:
-          enabled: true
-          streamable-http:
-            connections:
-              financial-server:
-                url: "http://localhost:8081"
+embabel:
+  agent:
+    platform:
+      models:
+        openai:
+          api-key: ${OPENAI_API_KEY}
+    logging:
+      personality: starwars
+  models:
+    default-llm: claude-sonnet-4-6
+    llms:
+      reviewer: claude-opus-4-6

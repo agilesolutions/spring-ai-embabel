@@ -5,11 +5,15 @@ import com.agilesolutions.trader.domain.AssetPriceUpdates;
 import com.agilesolutions.trader.domain.PortfolioReport;
 import com.agilesolutions.trader.model.PortfolioAssets;
 import com.agilesolutions.trader.service.PortfolioMarkdownGenerator;
+import com.embabel.agent.api.annotation.AchievesGoal;
 import com.embabel.agent.api.annotation.Action;
 import com.embabel.agent.api.annotation.Agent;
 import com.embabel.agent.api.common.OperationContext;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Builds a plan based on Strong data types to achieve its goal
+ */
 @Agent(description = "Portfolio Manager")
 @RequiredArgsConstructor
 public class TradingAgent {
@@ -69,6 +73,7 @@ public class TradingAgent {
                         AssetPerformances.class);
     }
 
+    @AchievesGoal(description = "A markdown report displaying the performance of our Porfolio Assets")
     @Action(description = "Generate a markdown portfolio report based on actual performances")
     public PortfolioReport generateReport(
             AssetPerformances performances,
