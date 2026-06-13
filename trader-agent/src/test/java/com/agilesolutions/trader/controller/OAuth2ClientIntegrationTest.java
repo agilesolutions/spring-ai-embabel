@@ -1,6 +1,5 @@
 package com.agilesolutions.trader.controller;
 
-import com.agilesolutions.service_a.service.EntityClient;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,11 +14,10 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * OAuth2 Client Credentials Flow Integration Tests - Service A
+ * OAuth2 Client Credentials Flow Integration Tests - Agent Controller endpoints
  * 
  * Uses Testcontainers to test OAuth2 Client Credentials flow with a real Keycloak instance.
  * Validates token acquisition and refresh mechanisms.
@@ -45,18 +43,12 @@ class OAuth2ClientIntegrationTest {
             .withCommand("start-dev");
 
     @Autowired(required = false)
-    private EntityClient entityClient;
-
-    @Autowired(required = false)
     private OAuth2AuthorizedClientManager authorizedClientManager;
 
     @Autowired(required = false)
     private ClientRegistrationRepository clientRegistrationRepository;
 
     private String keycloakUrl;
-    private static final String REALM = "demo";
-    private static final String SERVICE_A_CLIENT = "service-a";
-    private static final String SERVICE_A_SECRET = "service-a-secret";
 
     @BeforeEach
     void setUp() throws Exception {
@@ -98,20 +90,6 @@ class OAuth2ClientIntegrationTest {
         }
         
         throw new RuntimeException("Keycloak failed to start within 30 seconds");
-    }
-
-    @Test
-    @DisplayName("OAuth2AuthorizedClientManager should be initialized")
-    void testOAuth2AuthorizedClientManagerInitialized() {
-        assertNotNull(authorizedClientManager,
-                "OAuth2AuthorizedClientManager should be initialized");
-    }
-
-    @Test
-    @DisplayName("EntityClient should be initialized with OAuth2 support")
-    void testEntityClientInitializedWithOAuth2() {
-        assertNotNull(entityClient,
-                "EntityClient should be initialized");
     }
 
     @Test

@@ -40,7 +40,10 @@ dependencies {
 
 	implementation 'org.springframework.ai:spring-ai-starter-mcp-client-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	// Oauth2 Resource Server for JWT validation
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-resource-server'
 
 	// Choose one LLM provider
 	implementation 'org.springframework.ai:spring-ai-starter-model-openai'
@@ -52,6 +55,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	// swagger ui for testing
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.9")
 
 	// Test dependencies (required to use Lombok in src/test/java)
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

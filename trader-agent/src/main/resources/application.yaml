@@ -4,17 +4,10 @@ spring:
 
   security:
     oauth2:
-      client:
-        registration:
-          keycloak:
-            client-id: ${OAUTH2_CLIENT_ID:service-a}
-            client-secret: ${OAUTH2_CLIENT_SECRET:}
-            authorization-grant-type: client_credentials
-            scope: openid,profile,email
-        provider:
-          keycloak:
-            token-uri: ${OAUTH2_TOKEN_URI:http://keycloak:8080/auth/realms/demo/protocol/openid-connect/token}
-            issuer-uri: ${OAUTH2_ISSUER_URI:http://keycloak:8080/auth/realms/demo}
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH2_ISSUER_URI:http://keycloak:8087/auth/realms/demo}
+          jwk-set-uri: ${OAUTH2_JWK_SET_URI:http://keycloak:8087/auth/realms/demo/protocol/openid-connect/certs}
 
 
   ai:
