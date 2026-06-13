@@ -8,12 +8,14 @@ import com.agilesolutions.trader.service.PortfolioMarkdownGenerator;
 import com.embabel.agent.api.annotation.AchievesGoal;
 import com.embabel.agent.api.annotation.Action;
 import com.embabel.agent.api.annotation.Agent;
+import com.embabel.agent.api.annotation.EmbabelComponent;
 import com.embabel.agent.api.common.OperationContext;
 import lombok.RequiredArgsConstructor;
 
 /**
  * Builds a plan based on Strong data types to achieve its goal
  */
+@EmbabelComponent
 @Agent(description = "Portfolio Manager")
 @RequiredArgsConstructor
 public class TradingAgent {
