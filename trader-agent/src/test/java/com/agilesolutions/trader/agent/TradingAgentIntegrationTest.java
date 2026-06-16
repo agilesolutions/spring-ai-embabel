@@ -1,6 +1,7 @@
 package com.agilesolutions.trader.agent;
 
 
+import com.agilesolutions.trader.domain.*;
 import com.agilesolutions.trader.model.PortfolioAssetDto;
 import com.agilesolutions.trader.model.PortfolioAssets;
 import com.agilesolutions.trader.service.PortfolioMarkdownGenerator;
@@ -32,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 class TradingAgentIntegrationTest extends EmbabelMockitoIntegrationTest {
 
-    // Spring Boot 4 uses @MockitoBean instead of the deprecated @MockBean
+    // Required to initialize Oauth security context for agent execution, but we mock JwtDecoder to bypass actual token validation
     @MockitoBean
     private JwtDecoder jwtDecoder;
 
@@ -63,15 +64,56 @@ class TradingAgentIntegrationTest extends EmbabelMockitoIntegrationTest {
         // Trigger the agent execution, e.g., by calling a method or simulating an event
         whenCreateObject(s -> s.contains("AAPL") || s.contains("GOOGL"), PortfolioAssets.class).thenReturn(assets);
 
+        whenCreateObject(s -> s.contains("latest quotes for all assets"), AssetPriceUpdates.class).thenReturn(
+                new AssetPriceUpdates(List.of(
+                        AssetDeviation.builder()
+                                .symbol("AAPL")
+                                .previousClose(new java.math.BigDecimal("155.00"))
+                                .currentClose(new java.math.BigDecimal("162.00"))
+                                .absoluteChange(new java.math.BigDecimal("157.00"))
+                                .percentageChange(new java.math.BigDecimal("4.52"))
+                                .build(),
+                        AssetDeviation.builder()
+                                .symbol("GOOGL")
+                                .previousClose(new java.math.BigDecimal("2850.00"))
+                                .currentClose(new java.math.BigDecimal("2900.00"))
+                                .absoluteChange(new java.math.BigDecimal("50.00"))
+                                .percentageChange(new java.math.BigDecimal("1.75"))
+                                .build())));
+
+        whenCreateObject(s -> s.contains("Adjust purchase prices on behalf of latest quotes"), AssetPerformances.class).thenReturn(
+                new AssetPerformances(List.of(
+                        AssetPerformance.builder()
+                                .symbol("AAPL")
+                                .quantity(10)
+                                .purchasePrice(new java.math.BigDecimal("150.00"))
+                                .currentPrice(new java.math.BigDecimal("162.00"))
+                                .marketValue(new java.math.BigDecimal("1620.00"))
+                                .gainLoss(new java.math.BigDecimal("120.00"))
+                                .build(),
+                        AssetPerformance.builder()
+                                .symbol("GOOGL")
+                                .quantity(5)
+                                .purchasePrice(new java.math.BigDecimal("2800.00"))
+                                .currentPrice(new java.math.BigDecimal("2900.00"))
+                                .marketValue(new java.math.BigDecimal("14500.00"))
+                                .gainLoss(new java.math.BigDecimal("500.00"))
+                                .build()
+                )));
+
+         whenCreateObject(s -> s.contains("Generate markdown report"), PortfolioReport.class).thenReturn(
+                new PortfolioReport("## Portfolio Report\n\n- AAPL: +4.52%\n- GOOGL: +1.75%")
+        );
+
         // Then
         // Verify that the agent performed the expected actions and produced the correct results
         // You can use assertions to check the outputs and interactions with mocked dependencies
-        var invocation = AgentInvocation.create(agentPlatform, PortfolioAssets.class);
+        var invocation = AgentInvocation.create(agentPlatform, PortfolioReport.class);
 
         var result = invocation.invoke(input);
 
         assertNotNull(result);
-        assertEquals(2, result.assets() .size());
+        assertEquals(2, result.markdown().split("-").length - 1); // Check that both assets are included in the report
 
     }
 
