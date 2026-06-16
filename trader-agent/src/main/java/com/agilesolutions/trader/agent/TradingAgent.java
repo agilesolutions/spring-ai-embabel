@@ -9,8 +9,11 @@ import com.embabel.agent.api.annotation.AchievesGoal;
 import com.embabel.agent.api.annotation.Action;
 import com.embabel.agent.api.annotation.Agent;
 import com.embabel.agent.api.annotation.EmbabelComponent;
+import com.embabel.agent.api.common.Ai;
 import com.embabel.agent.api.common.OperationContext;
+import com.embabel.agent.domain.io.UserInput;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Builds a plan based on Strong data types to achieve its goal
@@ -18,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @EmbabelComponent
 @Agent(description = "Portfolio Manager")
 @RequiredArgsConstructor
+@Slf4j
 public class TradingAgent {
 
     private final PortfolioMarkdownGenerator markdownGenerator;
@@ -25,9 +29,11 @@ public class TradingAgent {
     @Action(
             description = "Load all persisted portfolio assets from PostgreSQL"
     )
-    public PortfolioAssets loadPortfolioAssets(OperationContext context) {
+    public PortfolioAssets loadPortfolioAssets(UserInput userInput, Ai ai) {
 
-        return context.ai()
+        log.info("Loading portfolio assets for user selection: {}", userInput.getContent());
+
+        return ai
                 .withDefaultLlm()
                 .createObject(
                         """
